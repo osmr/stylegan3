@@ -31,12 +31,13 @@ from common.env_stats import get_env_stats
 def subprocess_fn(rank, c, temp_dir, all_opts):
     dnnlib.util.Logger(file_name=os.path.join(c.run_dir, 'log.txt'), file_mode='a', should_flush=True)
 
-    print("Script command line:\n{}".format(" ".join(sys.argv)))
-    print("Script arguments:\n{}".format(json.dumps(all_opts, indent=2)))
-    print("Env_stats:\n{}".format(get_env_stats(
-        packages=["torch"],
-        pip_packages=["torch"])))
-    print("Training config:\n{}\n".format(json.dumps(c, indent=2)))
+    if rank == 0:
+        print("Script command line:\n{}".format(" ".join(sys.argv)))
+        print("Script arguments:\n{}".format(json.dumps(all_opts, indent=2)))
+        print("Env_stats:\n{}".format(get_env_stats(
+            packages=["torch"],
+            pip_packages=["torch"])))
+        print("Training config:\n{}\n".format(json.dumps(c, indent=2)))
 
     # Init torch.distributed.
     if c.num_gpus > 1:
