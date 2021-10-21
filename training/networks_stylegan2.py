@@ -200,8 +200,11 @@ class MappingNetwork(torch.nn.Module):
         activation      = 'lrelu',  # Activation function: 'relu', 'lrelu', etc.
         lr_multiplier   = 0.01,     # Learning rate multiplier for the mapping layers.
         w_avg_beta      = 0.998,    # Decay for tracking the moving average of W during training, None = do not track.
+        freeze_layers   = 0,        # Freeze-D: Number of layers to freeze.
     ):
         super().__init__()
+        assert (freeze_layers is not None)
+
         self.z_dim = z_dim
         self.c_dim = c_dim
         self.w_dim = w_dim
