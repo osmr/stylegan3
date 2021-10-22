@@ -12,4 +12,5 @@ imgui
 glfw
 pyopengl
 psutil
+ninja
 torch  # torch==1.9.1+cu111 -f https://download.pytorch.org/whl/torch_stable.html
